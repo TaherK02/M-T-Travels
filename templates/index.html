@@ -1,0 +1,90 @@
+{% extends "base.html" %} 
+{% block title %} M&T Travels {% endblock %}
+{% block header %}
+<div class="showcase">
+  <div class="headline">
+    <h1>Explore</h1>
+    <h2>THE WORLD</h2>
+    <a href="#getStarted" class="cta-btn">Get Started</a>
+  </div>
+  <div class="image">
+    <img
+      src="{{ url_for('static', filename='images/lighthouse.jpg') }}"
+      alt="lighthouse"
+    />
+  </div>
+</div>
+{% endblock %} {% block main %}
+<section id="getStarted">
+  <h1 class="section__title">Destinations Travelers Love</h1>
+  <div class="cards">
+    {% for package in top_packages %}
+    <a href="/destination/{{ package['slug'] }}" class="card">
+      <div class="card__image">
+        <img
+          src="{{ url_for('static', filename=package['image']) }}"
+          alt="{{package['city']}}"
+        />
+      </div>
+      <div class="card__details">
+        <p class="card__title"
+          >{{package['city']}}, {{package['country']}}</p
+        >
+
+        <span class="card__description"
+          ><i class="material-icons">star</i> {{package['ratings']}} / 5</span
+        >
+      </div>
+    </a>
+    {%endfor%}
+  </div>
+</section>
+<section>
+  <h1 class="section__title">Popular Destinations</h1>
+  <div class="cards">
+    {% for package in popular_packages %}
+    <a href="/destination/{{ package['slug'] }}" class="card">
+      <div class="card__image">
+        <img
+          src="{{ url_for('static', filename=package['image']) }}"
+          alt="{{package['city']}}"
+        />
+      </div>
+      <div class="card__details">
+        <p class="card__title"
+          >{{package['city']}}, {{package['country']}}</p
+        >
+
+        <span class="card__description"
+          ><i class="material-icons">star</i> {{package['ratings']}} / 5</span
+        >
+      </div>
+    </a>
+    {%endfor%}
+  </div>
+</section>
+<section>
+  <h1 class="section__title">Trending Destinations</h1>
+  <div class="cards">
+    {% for package in trending_packages %}
+    <a href="/destination/{{ package['slug'] }}" class="card">
+      <div class="card__image">
+        <img
+          src="{{ url_for('static', filename=package['image']) }}"
+          alt="{{package['city']}}"
+        />
+      </div>
+      <div class="card__details">
+        <p class="card__title"
+          >{{package['city']}}, {{package['country']}}</p
+        >
+
+        <span class="card__description"
+          ><i class="material-icons">star</i> {{package['ratings']}} / 5</span
+        >
+      </div>
+    </a>
+    {%endfor%}
+  </div>
+</section>
+{% endblock %}

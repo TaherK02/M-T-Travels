@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %} M&T Travels | COVID-19 {% endblock %}
+{% block main %}
+<section class="covid">
+  <div class="right">
+    <h1 class="section__title">COVID-19</h1>
+    <div class="tally">
+      <div class="category cases">
+        <span class="value">{{ tally[0] }}</span>
+        <span class="subtitle">Total Cases</span>
+      </div>
+      <div class="category recovered">
+        <span class="value">{{ tally[1] }}</span>
+        <span class="subtitle">Recovered</span>
+      </div>
+      <div class="category death">
+        <span class="value">{{ tally[2] }}</span>
+        <span class="subtitle">Death</span>
+      </div>
+    </div>
+    <div class="graph">
+      <img src="{{ url_for('static', filename='graph/graph.png') }}" alt="Graph">
+    </div>
+  </div>
+  
+  <aside class="country-wise">
+    <h1 class="title">Effected Top Countries</h1>
+    <div class="countries">
+      {% for country in country_wise %}
+        <article class="country">
+          <img class="country__flag" src="{{ country['countryInfo']['flag'] }}" alt="{{ country['country'] }}">
+          <div class="country__details">
+          <h3 class="country__name">{{ country['country'] }}</h3>
+          <div class="country__tally">
+            <div class="category">
+              <span class="subtitle">Cases</span>
+              <span class="value">{{ format(country['cases']) }}</span>
+            </div>
+            <div class="category">
+              <span class="subtitle">Death</span>
+              <span class="value">{{ format(country['deaths']) }}</span>
+            </div>
+            <div class="category">
+              <span class="subtitle">Recovered</span>
+              <span class="value">{{ format(country['recovered']) }}</span>
+            </div>
+          </div>
+        </div>
+        </article>
+      {% endfor %}
+    </div>
+  </aside>
+</section>
+
+{% endblock %}

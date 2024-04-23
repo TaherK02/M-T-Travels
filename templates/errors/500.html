@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %} 500 Server Error {% endblock %}
+{% block styles %}
+  <style>
+    main {
+      display: grid;
+      place-items: center;
+    }
+
+    .content-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .content-section h1 {
+      font-size: 7em;
+      font-weight: 400;
+      margin: 0;
+      color: #446472;
+    }
+
+    .content-section h1 {
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .content-section p {
+      width: min(100%, 600px);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .content-section a {
+      color: #598294;
+    }
+  </style>
+{% endblock styles %}
+{% block main %}
+  <div class="content-section">
+    <h1>500</h1>
+    <h3>SOMETHING WENT WRONG </h3>
+    <p>We are experiencing some trouble at our end. Please try again later.
+    </p>
+  </div>
+{% endblock main %}

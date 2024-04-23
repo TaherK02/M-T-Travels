@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %} M&T Travels | Destinations{% endblock %}
+{% block main %}
+<section class="pt-2">
+  <h1 class="section__title">Destinations</h1>
+  <div class="cards grid-4">
+    {% for package in packages %}
+    <a href="/destination/{{ package['slug'] }}" class="card">
+      <div class="card__image">
+        <img
+          src="{{ url_for('static', filename=package['image']) }}"
+          alt="{{ package['name'] }}"
+        />
+      </div>
+      <div class="card__details">
+        <p class="card__title"
+          >{{package['city']}}, {{package['country']}}</p
+        >
+
+        <span class="card__description"
+          ><i class="material-icons">star</i> {{package['ratings']}}/ 5</span
+        >
+      </div>
+    </a>
+    {%endfor%}
+  </div>
+  <ul class="pagination">
+    <li>
+      <a
+        href="/destinations?page={{page-1}}"
+        class="{% if page == 1%}disabled{% endif %}"
+        ><i class="material-icons">chevron_left</i></a
+      >
+    </li>
+    {% for i in range(1, page_length + 1) %}
+    <li>
+      <a href="/destinations?page={{i}}" class="{% if i == page%} active {% endif %}"
+        >{{ i }}</a
+      >
+    </li>
+    {% endfor %}
+    <li>
+      <a
+        href="/destinations?page={{page+1}}"
+        class="{% if page == page_length%}disabled{% endif %}"
+        ><i class="material-icons">chevron_right</i></a
+      >
+    </li>
+  </ul>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+{% block title %} M&T Travels | {{ city['city'] }} {% endblock %}
+{% block header %}
+<div class="city">
+  <div class="headline">
+    <h1>{{ city['city'] }}</h1>
+    <h2>{{ city['country']}}</h2>
+  </div>
+  <div class="image">
+    <img
+      src="{{ url_for('static', filename=city['image']) }}"
+      alt="{{ city['city'] }}"
+    />
+  </div>
+</div>
+{% endblock %} {% block main %}
+
+<section>
+  <h1 class="section__title">Places To Visit</h1>
+  <div class="cards">
+    {% for place in places %}
+    <div class="card">
+      <div class="card__image">
+        <img src="{{ url_for('static', filename=place['image']) }}" alt="{{place['city']}}" />
+      </div>
+      <div class="card__details">
+        <span class="card__title">{{place['place']}}</span>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} {% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  {% block styles %} {% endblock %}
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+
+<body>
+  <header>
+    <div class="navbar">
+      <nav>
+        <div class="logo">
+          <a href="/"><img src="{{ url_for('static', filename='images/logo.svg') }}" alt="M&T Travels" /></a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/destinations" class="nav-link">Destinations</a></li>
+          <li><a href="/covid-19" class="nav-link">COVID-19</a></li>
+          {% if user %}
+          <li>
+            <div class="profile-dropdown">
+              <i class="material-icons">account_circle</i>
+              <ul class="dropdown-menu">
+                <li>
+                  <p>
+                    <i class="material-icons">person</i> {{ user.username }}
+                  </p>
+                </li>
+                <li>
+                  <a href="/logout"><i class="material-icons">power_settings_new </i>
+                    Logout</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          {% else %}
+          <li><a href="/login" class="login-btn">Login</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+
+    {% block header %} {% endblock %}
+  </header>
+
+  <main>{% block main %} {% endblock %}</main>
+
+  <footer>
+    <div>
+      <div class="logo">
+        <a href="/"><img src="{{ url_for('static', filename='images/logo2.svg') }}" alt="M&T Travels" /></a>
+      </div>
+      <div class="query">
+        <h1 class="title">Any Queries?</h1>
+        <span>
+          <i class="material-icons">call</i>
+          <a href="tel://917289316107">+91 72893 16107</a>
+        </span>
+        <span>
+          <i class="material-icons">mail</i>
+          <a href="mailto:mttravels@gmail.com">mttravels@gmail.com</a>
+        </span>
+      </div>
+      <div class="newsletter">
+        <h1 class="title">Newsletter</h1>
+        <form action="/newsletter" method="post">
+          <input type="email" name="email" placeholder="Email address" />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">Copyright &copy; 2021 | All Rights Reserved.</div>
+  </footer>
+
+  <script>
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    {% with messages = get_flashed_messages(with_categories = true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    Toast.fire({
+      icon: "{{ category }}",
+      title: "{{ message }}",
+    });
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </script>
+</body>
+
+</html>
